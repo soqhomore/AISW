@@ -563,8 +563,9 @@ body:not(.dark-mode) .action-icon.name-icon {
   width: 100%;
   max-width: 500px;
   max-height: 85vh;
-  overflow-y: auto;
-  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   box-shadow: 0 20px 80px var(--shadow-lg);
   animation: slideUp var(--transition-normal) ease-out;
 }
@@ -579,6 +580,7 @@ body:not(.dark-mode) .action-icon.name-icon {
   backdrop-filter: blur(20px);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   margin: 0;
+  flex-shrink: 0;
 }
 
 .modal-header h2 {
@@ -611,6 +613,28 @@ body:not(.dark-mode) .action-icon.name-icon {
 
 .modal-body {
   padding: var(--spacing-lg) var(--spacing-xl);
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+}
+
+/* 모달 본문 스크롤바 (불투명) */
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+  background: var(--bg-glass);
+  border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
 }
 
 /* ==================== Profile Modal ==================== */
