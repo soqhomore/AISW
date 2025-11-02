@@ -466,11 +466,12 @@ body:not(.dark-mode) .music-timer-display {
 
 /* ==================== Action Buttons ==================== */
 .action-buttons {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--spacing-md);
   padding: var(--spacing-md);
-  flex-wrap: wrap;
+  max-width: 420px;
+  margin: 0 auto;
 }
 
 .action-button {
@@ -479,8 +480,9 @@ body:not(.dark-mode) .music-timer-display {
   border: 1px solid var(--border-glass);
   border-radius: var(--radius-full);
   padding: var(--spacing-md);
-  width: 85px;
-  height: 85px;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 85px;
   cursor: pointer;
   transition: all var(--transition-normal);
   box-shadow: 0 8px 30px var(--shadow);
@@ -622,6 +624,17 @@ body:not(.dark-mode) .action-icon.name-icon {
   display: flex;
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-md);
+}
+
+/* 모바일에서 세로 정렬 */
+@media (max-width: 480px) {
+  .name-input-group {
+    flex-direction: column;
+  }
+  
+  .save-name-button {
+    width: 100%;
+  }
 }
 
 .profile-info input {

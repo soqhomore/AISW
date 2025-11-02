@@ -543,10 +543,25 @@ const SleepBunnyApp = {
     });
   },
 
-  // 통계 세부 정보 표시
+  // 통계 세부 정보 표시 (토글 방식)
   showStatDetail(type) {
     const stats = StorageManager.getStatistics();
     const data = StorageManager.loadData();
+
+    const detailIds = {
+      'feed': 'feedDetail',
+      'read': 'readDetail',
+      'sound': 'soundDetail'
+    };
+    
+    const targetDetailId = detailIds[type];
+    const targetDetail = document.getElementById(targetDetailId);
+    
+    // 이미 열려있다면 닫기 (토글)
+    if (targetDetail && targetDetail.style.display === 'block') {
+      targetDetail.style.display = 'none';
+      return;
+    }
 
     // 먼저 모든 세부 정보를 숨김
     this.hideAllStatDetails();
