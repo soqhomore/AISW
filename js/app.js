@@ -615,12 +615,16 @@ const SleepBunnyApp = {
         const sorted = [...readingHistory].sort((a, b) => 
           new Date(b.lastRead) - new Date(a.lastRead)
         );
-        detailHTML = sorted.map(item => `
-          <div class="detail-row">
-            <span class="detail-label">${item.title}</span>
-            <span class="detail-value">${item.completed ? '완독 ✓' : '읽는 중'}</span>
-          </div>
-        `).join('');
+        detailHTML = sorted.map(item => {
+          const date = new Date(item.lastRead);
+          const formattedDate = `${date.getMonth() + 1}/${date.getDate()}`;
+          return `
+            <div class="detail-row">
+              <span class="detail-label">${item.title}</span>
+              <span class="detail-value">${formattedDate}</span>
+            </div>
+          `;
+        }).join('');
       }
     } else if (type === 'sound') {
       detailId = 'soundDetail';
