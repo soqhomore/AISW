@@ -19,12 +19,17 @@ const AudioManager = {
     'ocean-waves': {
       name: '파도 소리',
       emoji: '🌊',
-      files: [] // 파일 크기 제한으로 제외됨
+      files: [
+        'assets/audio/wave/59564__3bagbrew__beach_waves.mp3'
+      ]
     },
     'bonfire': {
       name: '모닥불 소리',
       emoji: '🔥',
-      files: [] // 파일 없음 - 시뮬레이션
+      files: [
+        'assets/audio/campfire/170247__matucha__campfire_01.wav',
+        'assets/audio/campfire/260713__daenerys__fire-crackling.mp3'
+      ]
     },
     'rain': {
       name: '빗소리',
