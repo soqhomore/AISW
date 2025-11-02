@@ -567,27 +567,7 @@ body:not(.dark-mode) .action-icon.name-icon {
   overflow-x: hidden;
   box-shadow: 0 20px 80px var(--shadow-lg);
   animation: slideUp var(--transition-normal) ease-out;
-}
-
-/* 스크롤바 스타일링 (박스 안쪽에 위치) */
-.modal-content::-webkit-scrollbar {
-  width: 6px;
-}
-
-.modal-content::-webkit-scrollbar-track {
-  background: transparent;
-  margin: var(--radius-xl) 0;
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-  background: var(--accent);
-  border-radius: 10px;
-  opacity: 0.7;
-}
-
-.modal-content::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-hover);
-  opacity: 1;
+  scrollbar-gutter: stable both-edges;
 }
 
 .modal-header {
@@ -600,6 +580,8 @@ body:not(.dark-mode) .action-icon.name-icon {
   backdrop-filter: blur(20px);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   margin: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .modal-header h2 {
