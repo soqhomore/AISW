@@ -579,8 +579,6 @@ body:not(.dark-mode) .action-icon.name-icon {
   backdrop-filter: blur(20px);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
   margin: 0;
-  width: 100%;
-  box-sizing: border-box;
 }
 
 .modal-header h2 {
@@ -1534,24 +1532,21 @@ input:checked + .slider:before {
 
 /* ==================== Scrollbar Styling ==================== */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-glass);
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent);
+  background: rgba(255, 158, 205, 0.5);
   border-radius: 10px;
-  border: 2px solid var(--bg-glass);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-hover);
+  background: rgba(255, 158, 205, 0.8);
 }
 
 /* ==================== Accessibility ==================== */
