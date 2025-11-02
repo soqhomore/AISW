@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SleepBunny - 토끼와 함께하는 수면 도우미">
+    <title>SleepBunny 🐰 수면 도우미</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="welcome-screen active">
+        <div class="welcome-content">
+            <div class="welcome-icon">🐰</div>
+            <p class="welcome-message" id="welcomeMessage">오늘 하루도 수고하셨어요!</p>
+            <button class="start-button" id="startButton">앱 시작하기</button>
+        </div>
+    </div>
+
+    <!-- Main App Screen -->
+    <div id="mainScreen" class="main-screen">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <button class="nav-icon" id="profileButton" aria-label="프로필">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </button>
+            <button class="nav-icon" id="settingsButton" aria-label="설정">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M12 1v6m0 6v6m-9-9h6m6 0h6"></path>
+                    <path d="M4.22 4.22l4.24 4.24m7.08 0l4.24-4.24M4.22 19.78l4.24-4.24m7.08 0l4.24 4.24"></path>
+                </svg>
+            </button>
+            <button class="nav-icon" id="darkModeButton" aria-label="다크 모드">
+                <svg class="icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <svg class="icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Bunny Character Area -->
+        <div class="bunny-container">
+            <div class="bunny-wrapper" id="bunnyWrapper">
+                <img src="assets/images/bunny-day.png" alt="Sleep Bunny" class="bunny-character" id="bunnyCharacter">
+                <div class="bunny-status" id="bunnyStatus"></div>
+            </div>
+        </div>
+
+        <!-- Music Player Bar (토끼 상단에 표시) -->
+        <div class="music-player-bar" id="musicPlayerBar">
+            <div class="music-player-title-section">
+                <div class="music-current-sound" id="musicCurrentSoundName">🎵 파도 소리</div>
+                <button class="music-close-btn" id="musicCloseBtn" aria-label="닫기">×</button>
+            </div>
+            <div class="music-player-bottom-section">
+                <div class="music-timer-display" id="musicTimerDisplay">⏱️ 30분</div>
+                <div class="music-player-controls">
+                    <button class="music-control-btn" id="musicPlayPauseBtn" aria-label="일시정지">
+                        <span class="music-play-icon" style="display: none;">▶️</span>
+                        <span class="music-pause-icon">⏸️</span>
+                    </button>
+                    <button class="music-control-btn stop" id="musicStopBtn" aria-label="정지">⏹️</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="action-button" id="feedButton" aria-label="먹이 주기">
+                <div class="action-icon">🥕</div>
+            </button>
+            <button class="action-button" id="bookButton" aria-label="책 읽기">
+                <div class="action-icon">📚</div>
+            </button>
+            <button class="action-button" id="soundButton" aria-label="소리 듣기">
+                <div class="action-icon">🎵</div>
+            </button>
+            <button class="action-button" id="callNameButton" aria-label="이름 부르기">
+                <div class="action-icon name-icon" id="callNameIcon">토끼!</div>
+            </button>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>프로필</h2>
+                <button class="close-button" data-modal="profileModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-info">
+                    <label for="userName">귀여운 토끼의 새로운 이름</label>
+                    <div class="name-input-group">
+                        <input type="text" id="userName" placeholder="이름을 입력하세요" maxlength="20">
+                        <button class="save-name-button" id="saveNameButton">저장</button>
+                    </div>
+                    <div class="stats">
+                        <div class="stat-group">
+                            <div class="stat-item clickable" id="feedStatItem">
+                                <span class="stat-label">먹이 준 횟수</span>
+                                <span class="stat-value" id="feedCount">0</span>
+                            </div>
+                            <div class="stat-detail" id="feedDetail" style="display: none;">
+                                <div id="feedDetailContent"></div>
+                            </div>
+                        </div>
+
+                        <div class="stat-group">
+                            <div class="stat-item clickable" id="readStatItem">
+                                <span class="stat-label">읽은 책 목록</span>
+                                <span class="stat-value" id="readCount">📚</span>
+                            </div>
+                            <div class="stat-detail" id="readDetail" style="display: none;">
+                                <div id="readDetailContent"></div>
+                            </div>
+                        </div>
+
+                        <div class="stat-group">
+                            <div class="stat-item clickable" id="soundStatItem">
+                                <span class="stat-label">음악 들은 횟수</span>
+                                <span class="stat-value" id="soundCount">0</span>
+                            </div>
+                            <div class="stat-detail" id="soundDetail" style="display: none;">
+                                <div id="soundDetailContent"></div>
+                            </div>
+                        </div>
+
+                        <div class="stat-group">
+                            <div class="stat-item">
+                                <span class="stat-label">이름 불러준 횟수</span>
+                                <span class="stat-value" id="callNameCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>설정</h2>
+                <button class="close-button" data-modal="settingsModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label for="volumeSlider">볼륨</label>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="70">
+                    <span id="volumeValue">70%</span>
+                </div>
+                <div class="setting-item">
+                    <label>다크 모드</label>
+                    <label class="switch">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feed Modal -->
+    <div id="feedModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>먹이 주기</h2>
+                <button class="close-button" data-modal="feedModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="food-grid">
+                    <button class="food-item" data-food="carrot">
+                        <span class="food-emoji">🥕</span>
+                        <span class="food-name">당근</span>
+                    </button>
+                    <button class="food-item" data-food="cabbage">
+                        <span class="food-emoji">🥬</span>
+                        <span class="food-name">양배추</span>
+                    </button>
+                    <button class="food-item" data-food="apple">
+                        <span class="food-emoji">🍎</span>
+                        <span class="food-name">사과</span>
+                    </button>
+                    <button class="food-item" data-food="lettuce">
+                        <span class="food-emoji">🥗</span>
+                        <span class="food-name">상추</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Modal -->
+    <div id="bookModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>책 선택하기</h2>
+                <button class="close-button" data-modal="bookModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="book-list" id="bookList">
+                    <!-- Books will be dynamically loaded -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Book Reading View -->
+    <div id="bookReadingView" class="book-reading-view">
+        <div class="book-reading-header">
+            <button class="back-button" id="backFromBook">&larr;</button>
+            <h2 id="bookTitle">책 제목</h2>
+        </div>
+        <div class="book-reading-content" id="bookContent">
+            <!-- Book content will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Sound Modal -->
+    <div id="soundModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>화이트 노이즈</h2>
+                <button class="close-button" data-modal="soundModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="sound-grid">
+                    <button class="sound-item" data-sound="page-turn">
+                        <span class="sound-emoji">📖</span>
+                        <span class="sound-name">책 넘기는 소리</span>
+                    </button>
+                    <button class="sound-item disabled" data-sound="ocean-waves" disabled>
+                        <span class="sound-emoji">🌊</span>
+                        <span class="sound-name">파도 소리 (미지원)</span>
+                    </button>
+                    <button class="sound-item disabled" data-sound="bonfire" disabled>
+                        <span class="sound-emoji">🔥</span>
+                        <span class="sound-name">모닥불 소리 (미지원)</span>
+                    </button>
+                    <button class="sound-item" data-sound="rain">
+                        <span class="sound-emoji">🌧️</span>
+                        <span class="sound-name">빗소리</span>
+                    </button>
+                    <button class="sound-item" data-sound="forest">
+                        <span class="sound-emoji">🌲</span>
+                        <span class="sound-name">숲속 소리</span>
+                    </button>
+                    <button class="sound-item" data-sound="white-noise">
+                        <span class="sound-emoji">💤</span>
+                        <span class="sound-name">백색 소음</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timer Selection Modal -->
+    <div id="timerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>재생 시간 선택</h2>
+                <button class="close-button" data-modal="timerModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="timer-selection-grid">
+                    <button class="timer-option" data-timer="10">
+                        <span class="timer-icon">⏱️</span>
+                        <span class="timer-label">10분</span>
+                    </button>
+                    <button class="timer-option" data-timer="30">
+                        <span class="timer-icon">⏰</span>
+                        <span class="timer-label">30분</span>
+                    </button>
+                    <button class="timer-option" data-timer="60">
+                        <span class="timer-icon">🕐</span>
+                        <span class="timer-label">1시간</span>
+                    </button>
+                    <button class="timer-option" data-timer="0">
+                        <span class="timer-icon">♾️</span>
+                        <span class="timer-label">무제한</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/books.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
