@@ -567,7 +567,6 @@ body:not(.dark-mode) .action-icon.name-icon {
   overflow-x: hidden;
   box-shadow: 0 20px 80px var(--shadow-lg);
   animation: slideUp var(--transition-normal) ease-out;
-  scrollbar-gutter: stable both-edges;
 }
 
 .modal-header {
