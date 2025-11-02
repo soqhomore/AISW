@@ -534,12 +534,15 @@ const SleepBunnyApp = {
     this.hideAllStatDetails();
   },
 
-  // 모든 통계 세부 정보 숨기기
+  // 모든 통계 세부 정보 숨기기 (애니메이션 없이)
   hideAllStatDetails() {
     const details = ['feedDetail', 'readDetail', 'soundDetail'];
     details.forEach(id => {
       const el = document.getElementById(id);
-      if (el) el.style.display = 'none';
+      if (el) {
+        el.classList.remove('opening', 'closing');
+        el.style.display = 'none';
+      }
     });
   },
 
@@ -557,9 +560,16 @@ const SleepBunnyApp = {
     const targetDetailId = detailIds[type];
     const targetDetail = document.getElementById(targetDetailId);
     
-    // 이미 열려있다면 닫기 (토글)
+    // 이미 열려있다면 닫기 애니메이션 실행 (토글)
     if (targetDetail && targetDetail.style.display === 'block') {
-      targetDetail.style.display = 'none';
+      targetDetail.classList.remove('opening');
+      targetDetail.classList.add('closing');
+      
+      // 애니메이션 끝나면 숨김
+      setTimeout(() => {
+        targetDetail.style.display = 'none';
+        targetDetail.classList.remove('closing');
+      }, 300); // 애니메이션 시간과 동일
       return;
     }
 
@@ -637,13 +647,22 @@ const SleepBunnyApp = {
       }
     }
 
-    // 해당 세부 정보 표시
+    // 해당 세부 정보 표시 (열기 애니메이션)
     const detailEl = document.getElementById(detailId);
     const contentEl = document.getElementById(contentId);
     
     if (detailEl && contentEl) {
       contentEl.innerHTML = detailHTML;
       detailEl.style.display = 'block';
+      
+      // 애니메이션을 위해 클래스 제거 후 다시 추가
+      detailEl.classList.remove('closing');
+      detailEl.classList.remove('opening');
+      
+      // 다음 프레임에 애니메이션 클래스 추가
+      requestAnimationFrame(() => {
+        detailEl.classList.add('opening');
+      });
     }
   },
 

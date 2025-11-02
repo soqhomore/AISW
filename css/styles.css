@@ -735,10 +735,16 @@ body:not(.dark-mode) .action-icon.name-icon {
   backdrop-filter: blur(20px);
   border: 1px solid var(--accent);
   border-radius: var(--radius-md);
-  animation: expandDown 0.3s ease-out;
   overflow: hidden;
   max-height: 500px;
-  transition: max-height 0.3s ease-out;
+}
+
+.stat-detail.opening {
+  animation: expandDown 0.3s ease-out;
+}
+
+.stat-detail.closing {
+  animation: collapseUp 0.3s ease-out forwards;
 }
 
 #feedDetailContent,
@@ -1245,6 +1251,21 @@ input:checked + .slider:before {
     opacity: 1;
     padding-top: var(--spacing-md);
     padding-bottom: var(--spacing-md);
+  }
+}
+
+@keyframes collapseUp {
+  from {
+    max-height: 500px;
+    opacity: 1;
+    padding-top: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }
 
