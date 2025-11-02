@@ -219,7 +219,13 @@ const AnimationManager = {
 
   // 독서 애니메이션
   playReadingAnimation(bookTitle = '책') {
-    this.setState('reading', `${bookTitle}을(를) 읽고 있어요 📚`);
+    // 조사 판단 (받침 유무)
+    const lastChar = bookTitle.charAt(bookTitle.length - 1);
+    const lastCharCode = lastChar.charCodeAt(0);
+    const hasFinalConsonant = (lastCharCode - 0xAC00) % 28 > 0;
+    const particle = hasFinalConsonant ? '을' : '를';
+    
+    this.setState('reading', `${bookTitle}${particle} 읽고 있어요 📚`);
     this.addReadingEffect();
   },
 
@@ -253,7 +259,13 @@ const AnimationManager = {
 
   // 음악 감상 애니메이션
   playListeningAnimation(soundName = '음악') {
-    this.setState('listening', `${soundName}을(를) 듣고 있어요 🎶`);
+    // 조사 판단 (받침 유무)
+    const lastChar = soundName.charAt(soundName.length - 1);
+    const lastCharCode = lastChar.charCodeAt(0);
+    const hasFinalConsonant = (lastCharCode - 0xAC00) % 28 > 0;
+    const particle = hasFinalConsonant ? '을' : '를';
+    
+    this.setState('listening', `${soundName}${particle} 듣고 있어요 🎶`);
     this.addListeningEffect();
   },
 
