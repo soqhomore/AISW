@@ -564,6 +564,7 @@ body:not(.dark-mode) .action-icon.name-icon {
   max-width: 500px;
   max-height: 85vh;
   overflow-y: auto;
+  overflow-x: hidden;
   box-shadow: 0 20px 80px var(--shadow-lg);
   animation: slideUp var(--transition-normal) ease-out;
 }
@@ -572,11 +573,12 @@ body:not(.dark-mode) .action-icon.name-icon {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-lg) var(--spacing-xl);
   border-bottom: 1px solid var(--border-glass);
   background: var(--bg-glass);
   backdrop-filter: blur(20px);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  margin: 0;
 }
 
 .modal-header h2 {
@@ -608,7 +610,7 @@ body:not(.dark-mode) .action-icon.name-icon {
 }
 
 .modal-body {
-  padding: var(--spacing-lg);
+  padding: var(--spacing-lg) var(--spacing-xl);
 }
 
 /* ==================== Profile Modal ==================== */
@@ -788,8 +790,10 @@ body:not(.dark-mode) .action-icon.name-icon {
 
 .setting-item input[type="range"] {
   width: 100%;
-  margin-right: var(--spacing-sm);
+  max-width: 100%;
+  margin-right: 0;
   accent-color: var(--accent);
+  box-sizing: border-box;
 }
 
 .switch {
