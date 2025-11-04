@@ -126,6 +126,10 @@ const SleepBunnyApp = {
       this.updateSettingsUI();
     });
 
+    document.getElementById('soundIndicatorButton')?.addEventListener('click', () => {
+      this.showMusicPlayerFromIndicator();
+    });
+
     document.getElementById('darkModeButton')?.addEventListener('click', () => {
       this.toggleDarkMode();
     });
@@ -437,6 +441,7 @@ const SleepBunnyApp = {
     const musicPlayerBar = document.getElementById('musicPlayerBar');
     const musicCurrentSoundName = document.getElementById('musicCurrentSoundName');
     const musicTimerDisplay = document.getElementById('musicTimerDisplay');
+    const soundIndicator = document.getElementById('soundIndicatorButton');
 
     if (musicCurrentSoundName) {
       musicCurrentSoundName.textContent = `🎵 ${soundName}`;
@@ -454,18 +459,44 @@ const SleepBunnyApp = {
       musicPlayerBar.classList.add('active');
     }
 
+    // 사운드 인디케이터 숨김
+    if (soundIndicator) {
+      soundIndicator.style.display = 'none';
+    }
+
     // 재생/일시정지 아이콘 초기화
     const playIcon = document.querySelector('.music-play-icon');
     const pauseIcon = document.querySelector('.music-pause-icon');
     if (playIcon) playIcon.style.display = 'none';
-    if (pauseIcon) pauseIcon.style.display = 'inline';
+    if (pauseIcon) pauseIcon.style.display = 'block';
   },
 
   // 음악 재생바 숨기기
   hideMusicPlayer() {
     const musicPlayerBar = document.getElementById('musicPlayerBar');
+    const soundIndicator = document.getElementById('soundIndicatorButton');
+    
     if (musicPlayerBar) {
       musicPlayerBar.classList.remove('active');
+    }
+    
+    // 음악이 재생 중이면 사운드 인디케이터 표시
+    if (AudioManager.isPlaying() && soundIndicator) {
+      soundIndicator.style.display = 'flex';
+    }
+  },
+
+  // 사운드 인디케이터로부터 음악 플레이어 다시 열기
+  showMusicPlayerFromIndicator() {
+    const musicPlayerBar = document.getElementById('musicPlayerBar');
+    const soundIndicator = document.getElementById('soundIndicatorButton');
+    
+    if (musicPlayerBar) {
+      musicPlayerBar.classList.add('active');
+    }
+    
+    if (soundIndicator) {
+      soundIndicator.style.display = 'none';
     }
   },
 
@@ -477,13 +508,13 @@ const SleepBunnyApp = {
     if (AudioManager.isPlaying()) {
       // 일시정지
       AudioManager.pause();
-      if (playIcon) playIcon.style.display = 'inline';
+      if (playIcon) playIcon.style.display = 'block';
       if (pauseIcon) pauseIcon.style.display = 'none';
     } else {
       // 재생
       AudioManager.resume();
       if (playIcon) playIcon.style.display = 'none';
-      if (pauseIcon) pauseIcon.style.display = 'inline';
+      if (pauseIcon) pauseIcon.style.display = 'block';
     }
   },
 
@@ -491,6 +522,13 @@ const SleepBunnyApp = {
   stopMusic() {
     AudioManager.stop();
     this.hideMusicPlayer();
+    
+    // 사운드 인디케이터도 숨김 (음악 완전 정지)
+    const soundIndicator = document.getElementById('soundIndicatorButton');
+    if (soundIndicator) {
+      soundIndicator.style.display = 'none';
+    }
+    
     AnimationManager.returnToIdle();
   },
 
@@ -505,6 +543,12 @@ const SleepBunnyApp = {
     
     // 음악 재생바 숨기기
     this.hideMusicPlayer();
+
+    // 사운드 인디케이터도 숨김 (타이머 종료)
+    const soundIndicator = document.getElementById('soundIndicatorButton');
+    if (soundIndicator) {
+      soundIndicator.style.display = 'none';
+    }
 
     // 애니메이션 종료
     if (AnimationManager.getCurrentState() === 'listening') {

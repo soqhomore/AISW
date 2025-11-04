@@ -242,6 +242,20 @@ body.app-started .main-screen {
   transition: color var(--transition-normal);
 }
 
+/* 사운드 인디케이터 애니메이션 */
+#soundIndicatorButton {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 4px 20px var(--shadow), 0 0 0 0 var(--accent);
+  }
+  50% {
+    box-shadow: 0 4px 30px var(--shadow-lg), 0 0 15px var(--accent);
+  }
+}
+
 .nav-icon:hover {
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 8px 30px var(--shadow-lg);
@@ -428,10 +442,9 @@ body:not(.dark-mode) .music-timer-display {
 
 .music-control-btn {
   background: transparent;
-  color: var(--accent);
+  color: var(--text-primary);
   border: none;
   padding: 0;
-  font-size: 1.8rem;
   cursor: pointer;
   transition: all var(--transition-normal);
   min-width: auto;
@@ -439,16 +452,23 @@ body:not(.dark-mode) .music-timer-display {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 400;
 }
 
-.music-control-btn:hover {
+.music-control-btn svg {
+  width: 28px;
+  height: 28px;
+  color: var(--text-primary);
+  transition: all var(--transition-normal);
+}
+
+.music-control-btn:hover svg {
   transform: scale(1.2);
-  color: var(--accent-hover);
+  color: var(--accent);
+  filter: drop-shadow(0 2px 8px var(--shadow-lg));
 }
 
-.music-control-btn:active {
-  transform: scale(1.1);
+.music-control-btn:active svg {
+  transform: scale(1.0);
 }
 
 
@@ -1448,8 +1468,9 @@ input:checked + .slider:before {
     font-size: var(--font-xs);
   }
 
-  .music-control-btn {
-    font-size: 1.5rem;
+  .music-control-btn svg {
+    width: 24px;
+    height: 24px;
   }
 
   .music-close-btn {
@@ -1543,8 +1564,9 @@ input:checked + .slider:before {
     font-size: var(--font-sm);
   }
 
-  .music-control-btn {
-    font-size: 1.8rem;
+  .music-control-btn svg {
+    width: 28px;
+    height: 28px;
   }
 
   .music-close-btn {
